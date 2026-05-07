@@ -1,0 +1,180 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28600\viewh18000\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 root@ubuntu:~$ ssh bandit12@bandit.labs.overthewire.org -p 2220\
+                         _                     _ _ _   \
+                        | |__   __ _ _ __   __| (_) |_ \
+                        | '_ \\ / _` | '_ \\ / _` | | __|\
+                        | |_) | (_| | | | | (_| | | |_ \
+                        |_.__/ \\__,_|_| |_|\\__,_|_|\\__|\
+                                                       \
+\
+                      This is an OverTheWire game server. \
+            More information on http://www.overthewire.org/wargames\
+\
+backend: gibson-0\
+bandit12@bandit.labs.overthewire.org's password: \
+\
+      ,----..            ,----,          .---.\
+     /   /   \\         ,/   .`|         /. ./|\
+    /   .     :      ,`   .'  :     .--'.  ' ;\
+   .   /   ;.  \\   ;    ;     /    /__./ \\ : |\
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \\' .\
+  ;   |  ; \\ ; | |    :     | /___/ \\ |    ' '\
+  |   :  | ; | ' ;    |.';  ; ;   \\  \\;      :\
+  .   |  ' ' ' : `----'  |  |  \\   ;  `      |\
+  '   ;  \\; /  |     '   :  ;   .   \\    .\\  ;\
+   \\   \\  ',  /      |   |  '    \\   \\   ' \\ |\
+    ;   :    /       '   :  |     :   '  |--"\
+     \\   \\ .'        ;   |.'       \\   \\ ;\
+  www. `---` ver     '---' he       '---" ire.org\
+\
+\
+Welcome to OverTheWire!\
+\
+If you find any problems, please report them to the #wargames channel on\
+discord or IRC.\
+\
+--[ Playing the games ]--\
+\
+  This machine might hold several wargames.\
+  If you are playing "somegame", then:\
+\
+    * USERNAMES are somegame0, somegame1, ...\
+    * Most LEVELS are stored in /somegame/.\
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.\
+\
+  Write-access to homedirectories is disabled. It is advised to create a\
+  working directory with a hard-to-guess name in /tmp/.  You can use the\
+  command "mktemp -d" in order to generate a random and hard to guess\
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc\
+  restricted so that users cannot snoop on eachother. Files and directories\
+  with easily guessable or short names will be periodically deleted! The /tmp\
+  directory is regularly wiped.\
+  Please play nice:\
+\
+    * don't leave orphan processes running\
+    * don't leave exploit-files laying around\
+    * don't annoy other players\
+    * don't post passwords or spoilers\
+    * again, DONT POST SPOILERS!\
+      This includes writeups of your solution on your blog or website!\
+\
+--[ Tips ]--\
+\
+  This machine has a 64bit processor and many security-features enabled\
+  by default, although ASLR has been switched off.  The following\
+  compiler flags might be interesting:\
+\
+    -m32                    compile for 32bit\
+    -fno-stack-protector    disable ProPolice\
+    -Wl,-z,norelro          disable relro\
+\
+  In addition, the execstack tool can be used to flag the stack as\
+  executable on ELF binaries.\
+\
+  Finally, network-access is limited for most levels by a local\
+  firewall.\
+\
+--[ Tools ]--\
+\
+ For your convenience we have installed a few useful tools which you can find\
+ in the following locations:\
+\
+    * gef (https://github.com/hugsy/gef) in /opt/gef/\
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/\
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/\
+    * pwntools (https://github.com/Gallopsled/pwntools)\
+    * radare2 (http://www.radare.org/)\
+\
+--[ More information ]--\
+\
+  For more information regarding individual wargames, visit\
+  http://www.overthewire.org/wargames/\
+\
+  For support, questions or comments, contact us on discord or IRC.\
+\
+  Enjoy your stay!\
+\
+bandit12@bandit:~$ ls\
+data.txt\
+bandit12@bandit:~$ man xxd\
+bandit12@bandit:~$ mkdir /temp/Zezu\
+mkdir: cannot create directory \'91/temp/Zezu\'92: No such file or directory\
+bandit12@bandit:~$ mkdir /tmp/Zezu\
+bandit12@bandit:~$ cp data.txt /tmp/Zezu\
+bandit12@bandit:~$ cd /tmp/Zezu\
+bandit12@bandit:/tmp/Zezu$ ls\
+data.txt\
+bandit12@bandit:/tmp/Zezu$ xxd -r data.txt > data\
+bandit12@bandit:/tmp/Zezu$ ls\
+data  data.txt\
+bandit12@bandit:/tmp/Zezu$ file data\
+data: gzip compressed data, was "data2.bin", last modified: Fri Apr  3 15:17:36 2026, max compression, from Unix, original size modulo 2^32 576\
+bandit12@bandit:/tmp/Zezu$ man gzip\
+bandit12@bandit:/tmp/Zezu$ mv data file.gz\
+bandit12@bandit:/tmp/Zezu$ gzip -d file.gz\
+bandit12@bandit:/tmp/Zezu$ ls\
+data.txt  file\
+bandit12@bandit:/tmp/Zezu$ file file\
+file: bzip2 compressed data, block size = 900k\
+bandit12@bandit:/tmp/Zezu$ mv file file.bz2\
+bandit12@bandit:/tmp/Zezu$ bzip2 -d file.bz2\
+bandit12@bandit:/tmp/Zezu$ ls\
+data.txt  file\
+bandit12@bandit:/tmp/Zezu$ file file\
+file: gzip compressed data, was "data4.bin", last modified: Fri Apr  3 15:17:36 2026, max compression, from Unix, original size modulo 2^32 20480\
+bandit12@bandit:/tmp/Zezu$ mv file file.gz\
+bandit12@bandit:/tmp/Zezu$ gzip -d file.gz\
+bandit12@bandit:/tmp/Zezu$ ls\
+data.txt  file\
+bandit12@bandit:/tmp/Zezu$ file file\
+file: POSIX tar archive (GNU)\
+bandit12@bandit:/tmp/Zezu$ mv file file.tar\
+bandit12@bandit:/tmp/Zezu$ man tar\
+bandit12@bandit:/tmp/Zezu$ tar xf file.tar\
+bandit12@bandit:/tmp/Zezu$ ls\
+data5.bin  data.txt  file.tar\
+bandit12@bandit:/tmp/Zezu$ file data5.bin\
+data5.bin: POSIX tar archive (GNU)\
+bandit12@bandit:/tmp/Zezu$ rm file.tar\
+bandit12@bandit:/tmp/Zezu$ rm data.txt\
+bandit12@bandit:/tmp/Zezu$ file data5.bin\
+data5.bin: POSIX tar archive (GNU)\
+bandit12@bandit:/tmp/Zezu$ mv data5.bin file.tar\
+bandit12@bandit:/tmp/Zezu$ tar xf file.tar\
+bandit12@bandit:/tmp/Zezu$ ls\
+data6.bin  file.tar\
+bandit12@bandit:/tmp/Zezu$ file data6.bin\
+data6.bin: bzip2 compressed data, block size = 900k\
+bandit12@bandit:/tmp/Zezu$ rm file.tar\
+bandit12@bandit:/tmp/Zezu$ mv data6.bin file.bz2\
+bandit12@bandit:/tmp/Zezu$ bzip2 -d file.bz2\
+bandit12@bandit:/tmp/Zezu$ ls\
+file\
+bandit12@bandit:/tmp/Zezu$ file file\
+file: POSIX tar archive (GNU)\
+bandit12@bandit:/tmp/Zezu$ mv file file.tar\
+bandit12@bandit:/tmp/Zezu$ tar xf file.tar\
+bandit12@bandit:/tmp/Zezu$ ls\
+data8.bin  file.tar\
+bandit12@bandit:/tmp/Zezu$ file data8.bin\
+data8.bin: gzip compressed data, was "data9.bin", last modified: Fri Apr  3 15:17:36 2026, max compression, from Unix, original size modulo 2^32 49\
+bandit12@bandit:/tmp/Zezu$ rm file.tar\
+bandit12@bandit:/tmp/Zezu$ mv data8.bin file.gz\
+bandit12@bandit:/tmp/Zezu$ gzip -d file.gz\
+bandit12@bandit:/tmp/Zezu$ ls\
+file\
+bandit12@bandit:/tmp/Zezu$ file file\
+file: ASCII text\
+bandit12@bandit:/tmp/Zezu$ cat file\
+The password is FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn\
+bandit12@bandit:/tmp/Zezu$ \
+\
+\
+\
+}
